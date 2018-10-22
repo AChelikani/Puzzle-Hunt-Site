@@ -1,0 +1,20 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}Puzzle Hunt{% endblock %}
+
+{% block navbar %}
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="{{ url_for('index') }}">Puzzle Hunt</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="{{ url_for('scoreboard') }}">Scoreboard</a></li>
+      <li><a href="{{ url_for('puzzles') }}">Puzzles</a></li>
+      <li><a href="{{ url_for('register') }}">Register</a></li>
+    </ul>
+  </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+{% endblock %}

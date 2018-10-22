@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1> Scoreboard </h1>
+  {% for team in team_scores %}
+    <li> {{ team.name }} : {{ team.score }} </li>
+  {% endfor %}
+{% endblock %}
