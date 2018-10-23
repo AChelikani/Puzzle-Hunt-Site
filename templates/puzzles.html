@@ -3,6 +3,8 @@
 {% block content %}
   <h1> Puzzles </h1>
   {% for puzzle in puzzles %}
-    <li> {{ puzzle.name }} </li>
+    <li><a href={{ url_for('puzzle_set', puzzle_name=puzzle.get_url_path())}}> {{ puzzle.name }} </a></li>
   {% endfor %}
+
+  
 {% endblock %}
