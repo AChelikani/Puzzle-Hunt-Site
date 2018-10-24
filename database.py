@@ -88,7 +88,7 @@ def add_team_to_team_scores(team):
 def get_all_teams():
     conn = sqlite3.connect(DATABASE_NAME)
     c = conn.cursor()
-    c.execute("SELECT * FROM team_scores ORDER BY score, last_solve")
+    c.execute("SELECT * FROM team_scores ORDER BY score DESC, last_solve ASC")
     all_teams = c.fetchall()
     conn.close()
     return all_teams
@@ -101,27 +101,24 @@ def get_team_by_passcode(code):
     conn.close()
     return all_teams
 
-def update_team_score(team_name, puzzle_name):
+def update_team_score(team_name):
     conn = sqlite3.connect(DATABASE_NAME)
     c = conn.cursor()
-    c.execute("UPDATE team_scores SET score=score+1 WHERE name=?", (team_name))
+    c.execute("UPDATE team_scores SET score=score+1, last_solve=? WHERE name=?", (time.time(), team_name))
     conn.commit()
     conn.close()
 
 def get_team_puzzle_solve(team_name, puzzle_name):
     conn = sqlite3.connect(DATABASE_NAME)
     c = conn.cursor()
-    c.execute("SELECT * FROM team_puzzles WHERE name=?", (team_name,))
-    puzzle = c.fetchall()
+    c.execute("SELECT {} FROM team_puzzles WHERE name=?".format(puzzle_name), (team_name,))
+    puzzle = c.fetchone()
     conn.close()
     return puzzle
 
-def update_team_stats(team_name, puzzle_name):
+def update_team_solves(team_name, puzzle_name):
     conn = sqlite3.connect(DATABASE_NAME)
-    c = con.cursor()
-    c.execute("UPDATE team_puzzles SET puzzle_name=?", (True))
+    c = conn.cursor()
+    c.execute("UPDATE team_puzzles SET {}=? WHERE name=?".format(puzzle_name), (True, team_name))
     conn.commit()
     conn.close()
-
-def is_team_unique(team):
-    pass
