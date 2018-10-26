@@ -14,13 +14,15 @@ class TeamScore:
         self.score = score
 
 class Puzzle:
-    def __init__(self, puzzle_name, puzzle_answer):
+    def __init__(self, puzzle_name, puzzle_answer, solves=0, attempts=0):
         self.name = puzzle_name
         self.answer = puzzle_answer
+        self.solves = solves
+        self.attempts = attempts
 
     def get_url_path(self):
         url_path = "_".join(map(str.lower, self.name.split(" ")))
         return url_path
 
     def __repr__(self):
-        return "Name: {}, Answer: {}".format(self.name, self.answer)
+        return "Name: {}, Answer: {}, Solves: {}, Attempts: {}".format(self.name, self.answer, self.solves, self.attempts)

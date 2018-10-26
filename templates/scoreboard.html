@@ -1,8 +1,45 @@
 {% extends "base.html" %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    .scoreboard-title {
+      color: #ff7f23;
+      text-align: center;
+      font-family: 'Righteous', cursive;
+      font-weight: bold;
+    }
 
+    table {
+      border: 1px solid black;
+      width: 75%;
+      align-items: center;
+    }
+
+    tr td:last-child {
+      width:1%;
+      white-space:nowrap;
+    }
+
+    th, td {
+      border: 1px solid black;
+      padding: 2px;
+    }
+  </style>
+{% endblock %}
 {% block content %}
-  <h1> Scoreboard </h1>
+  <h1 class="scoreboard-title"> Scoreboard </h1>
+  <table align="center">
+    <tr>
+      <th> Rank </th>
+      <th> Team </th>
+      <th> Score </th>
+    </tr>
   {% for team in team_scores %}
-    <li> {{ team.name }} : {{ team.score }} </li>
+    <tr>
+      <th> {{ loop.index }} </th>
+      <th> {{ team.name }} </th>
+      <th> {{ team.score }} </th>
+    </tr>
   {% endfor %}
+</table>
 {% endblock %}

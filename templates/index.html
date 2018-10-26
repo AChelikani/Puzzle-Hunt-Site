@@ -1,1 +1,67 @@
 {% extends "base.html" %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    .title {
+      color: #ff7f23;
+      text-align: center;
+      font-size: 100px;
+      font-family: 'Righteous', cursive;
+      font-weight: bold;
+    }
+
+    .column-title {
+      text-align: center;
+      font-size: 20px;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    .column-text {
+      margin-left: 10px;
+      margin-right: 10px;
+      font-size: 14px;
+      text-align: left;
+      font-family: 'Roboto', sans-serif;
+    }
+  </style>
+{% endblock %}
+{% block content %}
+<div class="title">
+  Puzzle Hunt
+</div>
+<div class="row">
+  <div class="col-sm-4">
+    <div class="column-title">
+      What
+    </div>
+    <div class="column-text">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam dui libero, luctus non imperdiet quis, euismod vitae libero.
+      Pellentesque id iaculis quam, eget vehicula risus. Nunc eget vulputate diam. Morbi fringilla ultricies aliquet.
+      Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+      Donec leo felis, rhoncus sit amet velit a, finibus convallis purus. Phasellus sit amet ante ligula.
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="column-title">
+      When
+    </div>
+    <div class="column-text">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam dui libero, luctus non imperdiet quis, euismod vitae libero.
+      Pellentesque id iaculis quam, eget vehicula risus. Nunc eget vulputate diam. Morbi fringilla ultricies aliquet.
+      Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+      Donec leo felis, rhoncus sit amet velit a, finibus convallis purus. Phasellus sit amet ante ligula.
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="column-title">
+      How
+    </div>
+    <div class="column-text">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam dui libero, luctus non imperdiet quis, euismod vitae libero.
+      Pellentesque id iaculis quam, eget vehicula risus. Nunc eget vulputate diam. Morbi fringilla ultricies aliquet.
+      Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+      Donec leo felis, rhoncus sit amet velit a, finibus convallis purus. Phasellus sit amet ante ligula.
+    </div>
+  </div>
+</div>
+{% endblock %}

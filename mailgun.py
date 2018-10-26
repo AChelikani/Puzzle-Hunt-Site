@@ -6,12 +6,13 @@ key = config.MAILGUN_API_KEY
 sandbox = config.MAILGUN_SANDBOX
 recipient = "advith.chelikani@gmail.com"
 
-def send_registration_email(recipient, html_template):
+def send_registration_email(recipient, code):
+    html_template = registration_template(code)
     request_url = 'https://api.mailgun.net/v2/{0}/messages'.format(sandbox)
     request = requests.post(request_url, auth=('api', key), data={
         'from': 'hello@example.com',
         'to': recipient,
-        'subject': 'Hello',
+        'subject': 'Arcane Puzzle Hunt Registration',
         'html': html_template
     })
     print('Status: {0}'.format(request.status_code))
@@ -19,4 +20,5 @@ def send_registration_email(recipient, html_template):
 
 
 if __name__ == "__main__":
-    send_registration_email(recipient, registration_template("a1b2"))
+    pass
+    #send_registration_email(recipient, registration_template("a1b2"))

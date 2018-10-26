@@ -7,10 +7,12 @@ import mock_database as mock_db
 import puzzle
 import team
 import helpers
+import mailgun
 
 app = Flask(__name__)
 Bootstrap(app)
 db.create_databases()
+puzzle.add_puzzles()
 mock_db.create_mock_teams()
 
 @app.route("/")
@@ -19,7 +21,7 @@ def index():
 
 @app.route("/puzzles")
 def puzzles():
-    return render_template("puzzles.html", puzzles=puzzle.get_all_puzzles())
+    return render_template("puzzles.html", puzzles=puzzle.get_all_puzzles_with_stats())
 
 @app.route("/puzzles/<puzzle_name>", methods=["GET", "POST"])
 def puzzle_set(puzzle_name):
@@ -30,14 +32,16 @@ def puzzle_set(puzzle_name):
     if request.method == 'POST' and form.validate():
         tm = team.get_team_by_passcode(form.code.data)
         if (tm):
-            if (form.answer.data == pzl.answer):
+            if (helpers.are_strings_matching(form.answer.data, pzl.answer)):
                 is_solved = team.is_puzzle_solved(tm, pzl)
                 if is_solved:
                     error_msg = "Already solved!"
                 else:
                     team.team_solved_puzzle(tm, pzl)
+                    puzzle.puzzle_solved(pzl)
                     error_msg = "Correct answer!"
             else:
+                puzzle.puzzle_attempted(pzl)
                 error_msg = "Incorrect answer!"
         else:
             error_msg = "Invalid password!"
@@ -62,6 +66,7 @@ def register():
             error_msg = "Team already exists!"
         else:
             db.add_team(tm)
+            mailgun.send_registration_email(tm.email, team_code)
             return render_template("completed_registration.html")
     return render_template("register.html", form=form, error=error_msg)
 

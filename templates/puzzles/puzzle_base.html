@@ -1,4 +1,14 @@
 {% block answer %}
+{% block style %}
+<style type="text/css">
+  .puzzle-title {
+    color: black;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+  }
+</style>
+{% endblock %}
 {% from "_formhelpers.html" import render_field %}
 <form method=post>
   <dl>

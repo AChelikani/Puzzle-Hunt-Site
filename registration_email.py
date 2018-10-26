@@ -1,13 +1,13 @@
 import jinja2
 
 def registration_template(code):
-    template = jinja2.Template("""
+    template = """
     <!doctype html>
     <html>
       <head>
         <meta name="viewport" content="width=device-width" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>Simple Transactional Email</title>
+        <title>Arcane Puzzle Hunt Registration</title>
         <style>
           /* -------------------------------------
               GLOBAL RESETS
@@ -264,8 +264,11 @@ def registration_template(code):
                       <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                         <tr>
                           <td>
-                            <p>Hey,</p>
-                            <p>You successfully signed up for Arcane Puzzle Hunt. {{ code }}</p>
+                            <center> <h2> Hey</h2> </center>
+                            <p>You successfully signed up for Arcane Puzzle Hunt. </p>
+
+                            <p>When you submit a puzzle answer, also enter in your team code to make sure you get points on the scoreboard. </p>
+                            <p>Good luck! Your team code is: <b> """ + code + """</b></p>
                             <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
                               <tbody>
                                 <tr>
@@ -273,7 +276,7 @@ def registration_template(code):
                                     <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                                       <tbody>
                                         <tr>
-                                          <td> <a href="http://htmlemail.io" target="_blank">Call To Action</a> </td>
+                                          <td> <a href="http://google.com" target="_blank">Arcane Puzzle Hunt</a> </td>
                                         </tr>
                                       </tbody>
                                     </table>
@@ -281,8 +284,6 @@ def registration_template(code):
                                 </tr>
                               </tbody>
                             </table>
-                            <p>This is a really simple email template. Its sole purpose is to get the recipient to click the button with no distractions.</p>
-                            <p>Good luck! Hope it works.</p>
                           </td>
                         </tr>
                       </table>
@@ -317,5 +318,5 @@ def registration_template(code):
         </table>
       </body>
     </html>
-    """)
-    return template.render({'code' : code})
+    """
+    return template
