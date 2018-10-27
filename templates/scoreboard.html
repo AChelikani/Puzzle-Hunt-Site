@@ -9,37 +9,50 @@
       font-weight: bold;
     }
 
+    .table-header {
+      color: #ffffff;
+      font-family: 'Righteous', cursive;
+    }
+
     table {
-      border: 1px solid black;
-      width: 75%;
+      width: 50%;
       align-items: center;
+      font-family: 'Roboto', sans-serif;
     }
 
-    tr td:last-child {
-      width:1%;
-      white-space:nowrap;
+
+    th, tr {
+      border-bottom: 1px solid black;
+      padding: 6px;
     }
 
-    th, td {
-      border: 1px solid black;
-      padding: 2px;
-    }
   </style>
 {% endblock %}
 {% block content %}
   <h1 class="scoreboard-title"> Scoreboard </h1>
   <table align="center">
-    <tr>
-      <th> Rank </th>
-      <th> Team </th>
-      <th> Score </th>
-    </tr>
-  {% for team in team_scores %}
-    <tr>
-      <th> {{ loop.index }} </th>
-      <th> {{ team.name }} </th>
-      <th> {{ team.score }} </th>
-    </tr>
-  {% endfor %}
+    <colgroup>
+      <col style="width: 5ch">
+      <col style="width: 30ch">
+      <col style="width: 5ch">
+    </colgroup>
+    <thead>
+      <div class="table-header">
+        <tr>
+          <th> Rank </th>
+          <th> Team </th>
+          <th> Score </th>
+        </tr>
+      </div>
+    </thead>
+    <tbody>
+    {% for team in team_scores %}
+      <tr>
+        <th> {{ loop.index }} </th>
+        <th> {{ team.name }} </th>
+        <th> {{ team.score }} </th>
+      </tr>
+    {% endfor %}
+  </tbody>
 </table>
 {% endblock %}

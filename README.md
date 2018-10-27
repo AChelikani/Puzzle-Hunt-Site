@@ -18,7 +18,8 @@ Backend
 - [ ] Be able to manually delete team
 - [ ] Be able to manually retrieve passcode
 - [ ] Be able to manually set new passcode
-- [ ] Total solves out of attempts per puzzle in puzzles page
+- [X] Total solves out of attempts per puzzle in puzzles page
+- [ ] Impose character limit on team name
 
 
 Frontend
