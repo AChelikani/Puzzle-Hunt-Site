@@ -31,10 +31,8 @@ def get_all_puzzles_with_stats():
     all_puzzle_stats = db.get_puzzles_stats()
     puzzle_index = 0
     for row in all_puzzle_stats:
-        print(row)
         pzl = puzzles[puzzle_index]
         pzl.solves, pzl.attempts = row[1], row[2]
         puzzles[puzzle_index] = pzl
         puzzle_index += 1
-    print(puzzles)
     return puzzles

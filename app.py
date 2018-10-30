@@ -8,6 +8,7 @@ import puzzle
 import team
 import helpers
 import mailgun
+import slack
 
 app = Flask(__name__)
 Bootstrap(app)
@@ -39,12 +40,16 @@ def puzzle_set(puzzle_name):
                 else:
                     team.team_solved_puzzle(tm, pzl)
                     puzzle.puzzle_solved(pzl)
+                    print("Team: {}, Puzzle: {}, Correct Answer!".format(tm.name, pzl.name))
+                    #slack.log_correct_answer(tm, pzl)
                     error_msg = "Correct answer!"
             else:
                 puzzle.puzzle_attempted(pzl)
+                #print("Team: {}, Puzzle: {}, Guess: {}".format(tm.name, pzl.name, form.answer.data))
+                slack.log_guess(tm, pzl, form.answer.data)
                 error_msg = "Incorrect answer!"
         else:
-            error_msg = "Invalid password!"
+            error_msg = "Invalid passcode!"
     form.answer.data = ""
     return render_template(url, form=form, error=error_msg)
 
@@ -58,18 +63,23 @@ def register():
     error_msg = None
     if request.method == 'POST' and form.validate():
         team_code = helpers.generate_team_code()
-        while (not team.is_team_code_unique()):
+        while (not team.is_team_code_unique(team_code)):
             team_code = helpers.generate_team_code()
         tm = Team(form.name.data, team_code, form.email.data)
-        print("\nTeam: {}, Code: {}\n".format(tm.name, tm.code))
         if not team.is_team_unique(tm):
             error_msg = "Team already exists!"
         else:
             db.add_team(tm)
-            mailgun.send_registration_email(tm.email, team_code)
+            print("\n Adding Team\n Team: {}, Code: {}\n".format(tm.name, tm.code))
+            #slack.log_team_registration(tm)
+            #mailgun.send_registration_email(tm.email, team_code)
             return render_template("completed_registration.html")
     return render_template("register.html", form=form, error=error_msg)
 
+
+@app.route("/stars")
+def stars():
+    return render_template("stars.html")
 
 
 if __name__ == "__main__":

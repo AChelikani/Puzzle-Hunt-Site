@@ -5,7 +5,7 @@
     .title {
       color: #ff7f23;
       text-align: center;
-      font-size: 100px;
+      font-size: 75px;
       font-family: 'Righteous', cursive;
       font-weight: bold;
     }
@@ -13,7 +13,7 @@
     .column-title {
       text-align: center;
       margin-bottom: 20px;
-      font-size: 20px;
+      font-size: 30px;
       font-family: 'Righteous', cursive;
     }
 
@@ -28,23 +28,30 @@
     .row {
       margin-left: 70px;
       margin-right: 70px;
+      margin-top: 30px;
+    }
+
+    .header-image {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 40%;
+      z-index:1;
     }
   </style>
 {% endblock %}
 {% block content %}
 <div class="title">
-  Puzzle Hunt
+  Endless Puzzle Hunt
 </div>
+<img class="header-image" src="{{ url_for('static', filename = 'img/planet_header.png') }}">
 <div class="row">
   <div class="col-sm-4">
     <div class="column-title">
       What
     </div>
     <div class="column-text">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam dui libero, luctus non imperdiet quis, euismod vitae libero.
-      Pellentesque id iaculis quam, eget vehicula risus. Nunc eget vulputate diam. Morbi fringilla ultricies aliquet.
-      Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-      Donec leo felis, rhoncus sit amet velit a, finibus convallis purus. Phasellus sit amet ante ligula.
+      A week-long <a href="https://en.wikipedia.org/wiki/Puzzlehunt">puzzle hunt</a> made for all levels of experience! The theme for this hunt is Outer Space.
     </div>
   </div>
   <div class="col-sm-4">
@@ -52,10 +59,7 @@
       When
     </div>
     <div class="column-text">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam dui libero, luctus non imperdiet quis, euismod vitae libero.
-      Pellentesque id iaculis quam, eget vehicula risus. Nunc eget vulputate diam. Morbi fringilla ultricies aliquet.
-      Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-      Donec leo felis, rhoncus sit amet velit a, finibus convallis purus. Phasellus sit amet ante ligula.
+      Four puzzles will be released each day from January 1st - January 8th, 2019.
     </div>
   </div>
   <div class="col-sm-4">
@@ -63,10 +67,7 @@
       How
     </div>
     <div class="column-text">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam dui libero, luctus non imperdiet quis, euismod vitae libero.
-      Pellentesque id iaculis quam, eget vehicula risus. Nunc eget vulputate diam. Morbi fringilla ultricies aliquet.
-      Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-      Donec leo felis, rhoncus sit amet velit a, finibus convallis purus. Phasellus sit amet ante ligula.
+      Register your team and check back here when the hunt starts, or wait for our email announcing the start of the hunt. Puzzles and hints will be posted each day and the winning team will get bragging rights! Shoot us an email at hello@hello.com with any questions.
     </div>
   </div>
 </div>

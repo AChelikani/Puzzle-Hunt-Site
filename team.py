@@ -12,10 +12,10 @@ def is_team_unique(team):
             return False
     return True
 
-def is_team_code_unique(team):
+def is_team_code_unique(team_code):
     all_teams = db.get_all_teams()
     for row in all_teams:
-        if (team.code == row[1]):
+        if (team_code == row[1]):
             return False
     return True
 

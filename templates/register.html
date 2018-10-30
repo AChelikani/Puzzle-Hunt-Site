@@ -1,17 +1,47 @@
 {% extends "base.html" %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    .register-title {
+      color: #ff7f23;
+      text-align: center;
+      font-family: 'Righteous', cursive;
+      font-weight: bold;
+    }
 
+    .register-form {
+      text-align: center;
+      color: black;
+    }
+
+    .input-field {
+      color: black;
+    }
+
+    .submit {
+      color: white;
+      background-color: black;
+    }
+
+    .error {
+      color: white;
+      text-align: center;
+    }
+  </style>
+{% endblock %}
 {% block content %}
-  <h1> Register your team </h1>
+  <h1 class="register-title"> Register </h1>
   {% from "_formhelpers.html" import render_field %}
-  <form method=post>
+  <form class="register-form" method=post>
     <dl>
       {{ render_field(form.name) }}
+      <br>
       {{ render_field(form.email) }}
     </dl>
-    <p><input type=submit value=Register>
+    <p><input class="submit" type=submit value=Register>
   </form>
 {% if error %}
-  <p> {{ error }} </p>
+  <p class="error"> {{ error }} </p>
 {% endif %}
 
 {% endblock %}

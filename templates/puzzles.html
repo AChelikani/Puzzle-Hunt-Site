@@ -9,24 +9,38 @@
       font-weight: bold;
     }
 
-    table {
-      width: 75%;
-      align-items: center;
+    .table-header {
+      color: #ffffff;
+      font-family: 'Righteous', cursive;
     }
 
+    table {
+      width: 50%;
+      align-items: center;
+      font-family: 'Roboto', sans-serif;
+    }
+
+
     th, tr {
-      border-top: 1px solid black;
-      padding: 10px;
+      border-bottom: 1px solid black;
+      padding: 6px;
+      border-color: white;
     }
   </style>
 {% endblock %}
 {% block content %}
   <h1 class="puzzles-title"> Puzzles </h1>
   <table align="center">
-    <tr>
-      <th> Puzzle </th>
-      <th> Solves </th>
-    </tr>
+    <colgroup>
+      <col style="width: 40ch">
+      <col style="width: 8ch">
+    </colgroup>
+    <div class="table-header">
+      <tr>
+        <th> Puzzle </th>
+        <th> Solves </th>
+      </tr>
+    </div>
   {% for puzzle in puzzles %}
     <tr>
       <th> <a href="{{ url_for('puzzle_set', puzzle_name=puzzle.get_url_path())}}">{{ puzzle.name }}</a></th>

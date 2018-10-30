@@ -19,7 +19,8 @@ Backend
 - [ ] Be able to manually retrieve passcode
 - [ ] Be able to manually set new passcode
 - [X] Total solves out of attempts per puzzle in puzzles page
-- [ ] Impose character limit on team name
+- [X] Impose character limit on team name
+- [ ] Add forgot team code button
 
 
 Frontend
