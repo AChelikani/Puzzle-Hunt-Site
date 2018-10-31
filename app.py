@@ -77,10 +77,5 @@ def register():
     return render_template("register.html", form=form, error=error_msg)
 
 
-@app.route("/stars")
-def stars():
-    return render_template("stars.html")
-
-
 if __name__ == "__main__":
     app.run(debug=True)
