@@ -1,6 +1,28 @@
 {% extends "base.html" %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    .thankyou {
+      color: white;
+      text-align: center;
+      font-size: 40px;
+      font-family: 'Righteous', cursive;
+      font-weight: bold;
+      position: relative;
+      margin-top: 100px;
+    }
 
+    .subtext {
+      color: white;
+      position: relative;
+      text-align: center;
+      font-size: 20px;
+    }
+
+  </style>
+{% endblock %}
 {% block content %}
-  <h1> Thank you for registering - you should receive an email as confirmation. </h1>
-  <h3> You will receive a team passcode in your email that you will use when you submit answers during the hunt. <h3>
+  <h1 class="thankyou"> Thank you for registering - you should receive an email as confirmation. </h1>
+  <h3 class="subtext"> You will receive a team passcode in your email that you will use when you submit answers during the hunt. <h3>
+  <h3 class="subtext"> Email: hello@hello.com if you have any questions </h3>
 {% endblock %}

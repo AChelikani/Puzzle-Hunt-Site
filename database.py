@@ -104,7 +104,7 @@ def add_team_to_teams(team):
 def add_team_to_puzzles(team):
     conn = sqlite3.connect(DATABASE_NAME)
     c = conn.cursor()
-    c.execute("INSERT INTO team_puzzles VALUES (?,)", (team.name,))
+    c.execute("INSERT INTO team_puzzles (name) VALUES (?)", (team.name,))
     conn.commit()
     conn.close()
 
