@@ -2,7 +2,7 @@
 {% block head %}
   {{ super() }}
   <style type="text/css">
-    .register-title {
+    .login-title {
       color: #ff7f23;
       text-align: center;
       font-family: 'Righteous', cursive;
@@ -11,7 +11,7 @@
       margin-top: 100px;
     }
 
-    .register-form {
+    .login-form {
       text-align: center;
       color: black;
       position: relative;
@@ -29,19 +29,15 @@
   </style>
 {% endblock %}
 {% block content %}
-  <h1 class="register-title"> Register </h1>
+  <h1 class="login-title"> Login </h1>
   {% from "_formhelpers.html" import render_field %}
-  <form class="register-form" method=post>
+  <form class="login-form" method=post action="login">
     <dl>
-      {{ render_field(form.name) }}
-      <br>
-      {{ render_field(form.email) }}
-      <br>
       {{ render_field(form.username) }}
       <br>
       {{ render_field(form.password) }}
     </dl>
-    <p><input class="submit" type=submit value=Register>
+    <p><input class="submit" type=submit value=Login>
   </form>
 {% if error %}
   <p class="error"> {{ error }} </p>

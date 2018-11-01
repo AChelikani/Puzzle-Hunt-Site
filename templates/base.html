@@ -174,9 +174,17 @@
   <div class="container-fluid">
     <ul class="nav navbar-nav">
       <li class="navbar-categories"><a href="{{ url_for('index') }}">Home</a></li>
+      {% if not current_user.is_authenticated %}
+      <li class="navbar-categories"><a href="{{ url_for('login') }}">Login</a></li>
+      {% endif %}
       <li class="navbar-categories"><a href="{{ url_for('scoreboard') }}">Scoreboard</a></li>
       <li class="navbar-categories"><a href="{{ url_for('puzzles') }}">Puzzles</a></li>
+      {% if not current_user.is_authenticated %}
       <li class="navbar-categories"><a href="{{ url_for('register') }}">Register</a></li>
+      {% endif %}
+      {% if current_user.is_authenticated %}
+      <li class="navbar-categories"><a href="{{ url_for('logout') }}">Logout</a></li>
+      {% endif %}
     </ul>
   </div>
 </nav>

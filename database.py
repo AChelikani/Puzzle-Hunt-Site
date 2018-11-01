@@ -6,9 +6,9 @@ DATABASE_NAME = "puzzle_hunt.db"
 '''
 TEAMS
 
-name   | code | email                      | score
----------------------------------------------------
-adv18  | xyz  | advith.chelikani@gmail.com | 0
+name   | username | code  | email                      | score
+------------------------------------------------------------------
+adv18  | adv18    | xyz   | advith.chelikani@gmail.com | 0
 
 
 TEAM_PUZZLES
@@ -44,7 +44,7 @@ def create_teams_database():
     c = conn.cursor()
     c.execute("DROP TABLE IF EXISTS teams")
     c.execute('''CREATE TABLE teams
-                (name text, code text, email text)''')
+                (name text, username text, code text, email text)''')
     conn.commit()
     conn.close()
 
@@ -97,7 +97,7 @@ def add_team(team):
 def add_team_to_teams(team):
     conn = sqlite3.connect(DATABASE_NAME)
     c = conn.cursor()
-    c.execute("INSERT INTO teams VALUES (?, ?, ?)", (team.name, team.code, team.email))
+    c.execute("INSERT INTO teams VALUES (?, ?, ?, ?)", (team.name, team.username, team.code, team.email))
     conn.commit()
     conn.close()
 
@@ -123,11 +123,21 @@ def get_all_teams():
     conn.close()
     return all_teams
 
-def get_team_by_passcode(code):
+def get_team_by_username(username):
     conn = sqlite3.connect(DATABASE_NAME)
     c = conn.cursor()
-    c.execute("SELECT * FROM teams WHERE code=?", (code,))
+    c.execute("SELECT * FROM teams where username=?", (username,))
     all_teams = c.fetchall()
+    print(all_teams)
+    conn.close()
+    return all_teams
+
+def get_team_by_teamname(team_name):
+    conn = sqlite3.connect(DATABASE_NAME)
+    c = conn.cursor()
+    c.execute("SELECT * FROM teams where name=?", (team_name,))
+    all_teams = c.fetchall()
+    print(all_teams)
     conn.close()
     return all_teams
 
@@ -145,6 +155,14 @@ def update_team_score(team_name):
     c.execute("UPDATE team_scores SET score=score+1, last_solve=? WHERE name=?", (time.time(), team_name))
     conn.commit()
     conn.close()
+
+def get_team_puzzles(team_name):
+    conn = sqlite3.connect(DATABASE_NAME)
+    c = conn.cursor()
+    c.execute("SELECT * FROM team_puzzles WHERE name=?", (team_name,))
+    puzzles = c.fetchall()
+    conn.close()
+    return puzzles
 
 def get_team_puzzle_solve(team_name, puzzle_name):
     conn = sqlite3.connect(DATABASE_NAME)

@@ -47,7 +47,7 @@
     </div>
   {% for puzzle in puzzles %}
     <tr>
-      <th> <a href="{{ url_for('puzzle_set', puzzle_name=puzzle.get_url_path())}}">{{ puzzle.name }}</a></th>
+      <th>  {% if puzzle.name in puzzle_solves and puzzle_solves[puzzle.name] %}&check; {% endif %}</div> <a href="{{ url_for('puzzle_set', puzzle_name=puzzle.get_url_path())}}"> {{ puzzle.name }}</a></th>
       <th> {{puzzle.solves}}/{{puzzle.attempts}} </th>
     </tr>
   {% endfor %}

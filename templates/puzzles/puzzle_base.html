@@ -35,18 +35,19 @@
   .error {
     color: white;
     text-align: center;
+    position: relative;
   }
 </style>
 {% endblock %}
-{% from "_formhelpers.html" import render_field %}
-<form class="answer-form" method=post>
-  <dl>
-    {{ render_field(form.answer) }}
-    <br>
-    {{ render_field(form.code) }}
-  </dl>
-  <p><input class="submit" type=submit value=Submit>
-</form>
+{% if current_user.is_authenticated %}
+  {% from "_formhelpers.html" import render_field %}
+  <form class="answer-form" method=post>
+    <dl>
+      {{ render_field(form.answer) }}
+    </dl>
+    <p><input class="submit" type=submit value=Submit>
+  </form>
+{% endif %}
 {% if error %}
   <p class="error"> {{ error }} </p>
 {% endif %}

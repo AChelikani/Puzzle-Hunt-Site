@@ -1,12 +1,13 @@
 class Team:
-    def __init__(self, team_name, team_code, team_email, score=0):
+    def __init__(self, team_name, team_username, team_code, team_email, score=0):
         self.name = team_name
+        self.username = team_username
         self.code = team_code
         self.email = team_email
         self.score = score
 
     def __repr__(self):
-        return "Name: {}, Code: {}, Email: {}, Score: {}".format(self.name, self.code, self.email, self.score)
+        return "Name: {}, Usenrame: {}, Code: {}, Email: {}, Score: {}".format(self.name, self.username, self.code, self.email, self.score)
 
 class TeamScore:
     def __init__(self, team_name, score):

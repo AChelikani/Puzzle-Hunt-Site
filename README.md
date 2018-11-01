@@ -2,7 +2,7 @@
 
 
 ### Todos
-Backend
+Tasks
 - [ ] Add email verification
 - [X] Add duplicate team name verification
 - [X] Send out email on account creation
@@ -20,20 +20,15 @@ Backend
 - [ ] Be able to manually set new passcode
 - [X] Total solves out of attempts per puzzle in puzzles page
 - [X] Impose character limit on team name
-- [ ] Add forgot team code button
-
-
-Frontend
-- [ ] Home page
-- [ ] Scoreboard page
-- [ ] Register page
-- [ ] Completed registration page
-- [ ] Email template
-- [ ] Puzzle list page
-- [ ] Individual puzzle page
-- [ ] Nav bar
-
-
+- [ ] Add forgot team password button
+- [X] Add login system
+  - [X] Hide relevant content behind login flag
+  - [X] Make registration take a password field
+  - [X] Make answer submits reflect team score
+- [ ] Show a team page
+- [X] Show which puzzles are solved on puzzles page
+- [ ] Add an option to sort by most solved
+- [ ] More robust checking around if team names or usernames are the same
 
 Hosting
 - [ ] Get domain name
