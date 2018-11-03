@@ -26,7 +26,7 @@ def puzzle_solved(puzzle):
 def puzzle_attempted(puzzle):
     db.update_puzzle_attempts(puzzle.get_url_path())
 
-def get_all_puzzles_with_stats():
+def get_all_puzzles_with_stats(by_solves=False):
     puzzles = get_all_puzzles()
     all_puzzle_stats = db.get_puzzles_stats()
     puzzle_index = 0
@@ -35,4 +35,6 @@ def get_all_puzzles_with_stats():
         pzl.solves, pzl.attempts = row[1], row[2]
         puzzles[puzzle_index] = pzl
         puzzle_index += 1
+    if (by_solves):
+        puzzles = sorted(puzzles, key=lambda x: x.solves, reverse=True)
     return puzzles

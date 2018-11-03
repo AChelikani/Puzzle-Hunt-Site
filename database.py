@@ -123,6 +123,11 @@ def get_all_teams():
     conn.close()
     return all_teams
 
+def get_team_rank(team_name):
+    conn = sqlite3.connect(DATABASE_NAME)
+    c = conn.cursor()
+    c.execute("SET @i=0; SELECT id, name, score, @i:=@i+1 AS rank FROM ranking ORDER BY score DESC;")
+
 def get_team_by_username(username):
     conn = sqlite3.connect(DATABASE_NAME)
     c = conn.cursor()

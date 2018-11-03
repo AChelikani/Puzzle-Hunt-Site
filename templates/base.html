@@ -176,6 +176,8 @@
       <li class="navbar-categories"><a href="{{ url_for('index') }}">Home</a></li>
       {% if not current_user.is_authenticated %}
       <li class="navbar-categories"><a href="{{ url_for('login') }}">Login</a></li>
+      {% else %}
+      <li class="navbar-categories"><a href="{{ url_for('team_info') }}">Team Info</a></li>
       {% endif %}
       <li class="navbar-categories"><a href="{{ url_for('scoreboard') }}">Scoreboard</a></li>
       <li class="navbar-categories"><a href="{{ url_for('puzzles') }}">Puzzles</a></li>

@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+  .team-title {
+    color: #ff7f23;
+    text-align: center;
+    font-family: 'Righteous', cursive;
+    font-weight: bold;
+    position: relative;
+    margin-top: 100px;
+  }
+
+  .team-info {
+    color: white;
+    position: relative;
+    margin-left: 20px;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .transbox {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+    background-color: #ffffff;
+    border: 3px solid #ff7f23;
+    opacity: 0.90;
+    filter: alpha(opacity=90); /* For IE8 and earlier */
+    color: black;
+    width: 50%
+  }
+
+  .team-stats-header {
+    color: black;
+    font-size: 20px;
+    text-align: center;
+    font-family: 'Righteous', cursive;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+
+  .team-stats {
+    color: black;
+    margin-left: 10px;
+    font-family: 'Roboto', sans-serif;
+  }
+
+  </style>
+{% endblock %}
+{% block content %}
+  <h1 class="team-title"> {{ current_user.team.name }}</h1>
+  <h3 class="team-info"> Email: {{ current_user.team.email }}</h3>
+  <div class="transbox">
+    <p class="team-stats-header"> Stats </p>
+    <p class="team-stats"> Rank: </p>
+    <p class="team-stats"> Puzzles Solved: </p>
+    <p class="team-stats"> Time Since Last Solve: </p>
+  </div>
+{% endblock %}

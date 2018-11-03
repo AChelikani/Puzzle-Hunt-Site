@@ -25,10 +25,11 @@ Tasks
   - [X] Hide relevant content behind login flag
   - [X] Make registration take a password field
   - [X] Make answer submits reflect team score
-- [ ] Show a team page
+- [X] Show a team page
 - [X] Show which puzzles are solved on puzzles page
 - [ ] Add an option to sort by most solved
 - [ ] More robust checking around if team names or usernames are the same
+- [ ] Change post account creation page
 
 Hosting
 - [ ] Get domain name

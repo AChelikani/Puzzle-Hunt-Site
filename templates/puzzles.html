@@ -30,6 +30,7 @@
       padding: 6px;
       border-color: white;
     }
+
   </style>
 {% endblock %}
 {% block content %}
@@ -41,13 +42,13 @@
     </colgroup>
     <div class="table-header">
       <tr>
-        <th> Puzzle </th>
-        <th> Solves </th>
+        <th> <a href="/puzzles?sort_by_solved=1"> Puzzle </a> </th>
+        <th> <a href="/puzzles?sort_by_solve=1"> Solves </a> </th>
       </tr>
     </div>
   {% for puzzle in puzzles %}
     <tr>
-      <th>  {% if puzzle.name in puzzle_solves and puzzle_solves[puzzle.name] %}&check; {% endif %}</div> <a href="{{ url_for('puzzle_set', puzzle_name=puzzle.get_url_path())}}"> {{ puzzle.name }}</a></th>
+      <th>  {% if puzzle_solves[puzzle.name] %}&check; {% endif %}</div> <a href="{{ url_for('puzzle_set', puzzle_name=puzzle.get_url_path())}}"> {{ puzzle.name }}</a></th>
       <th> {{puzzle.solves}}/{{puzzle.attempts}} </th>
     </tr>
   {% endfor %}

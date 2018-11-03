@@ -28,10 +28,16 @@ def index():
 
 @app.route("/puzzles")
 def puzzles():
+    by_solves = request.args.get("sort_by_solve")
+    by_solved = request.args.get("sort_by_solved")
+    print(by_solves)
     puzzle_solves = {}
     if flask_login.current_user.is_authenticated:
         puzzle_solves = team.get_all_team_puzzles(flask_login.current_user.team)
-    return render_template("puzzles.html", puzzles=puzzle.get_all_puzzles_with_stats(), puzzle_solves=puzzle_solves)
+    puzzles = puzzle.get_all_puzzles_with_stats(by_solves=by_solves)
+    if by_solved:
+        puzzles = list(filter(lambda x: not puzzle_solves[x.name], puzzles)) + list(filter(lambda x: puzzle_solves[x.name], puzzles))
+    return render_template("puzzles.html", puzzles=puzzles, puzzle_solves=puzzle_solves)
 
 @app.route("/puzzles/<puzzle_name>", methods=["GET", "POST"])
 def puzzle_set(puzzle_name):
@@ -62,6 +68,10 @@ def puzzle_set(puzzle_name):
 @app.route("/scoreboard")
 def scoreboard():
     return render_template("scoreboard.html", team_scores=team.get_all_teams_scores())
+
+@app.route("/team_info")
+def team_info():
+    return render_template("team_info.html")
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
