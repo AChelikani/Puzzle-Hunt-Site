@@ -2,7 +2,7 @@
 {% block head %}
   {{ super() }}
   <style type="text/css">
-    .login-title {
+    .root-title {
       color: #ff7f23;
       text-align: center;
       font-family: 'Righteous', cursive;
@@ -11,15 +11,19 @@
       margin-top: 100px;
     }
 
-    .login-form {
+    .get-tables-form {
       text-align: center;
       color: black;
       position: relative;
     }
 
-    .input-field {
+
+    .update-tables-form {
+      text-align: center;
       color: black;
+      position: relative;
     }
+
 
     .error {
       color: white;
@@ -29,15 +33,25 @@
   </style>
 {% endblock %}
 {% block content %}
-  <h1 class="login-title"> Login </h1>
+  <h1 class="root-title"> Root </h1>
+  <form class="get-tables-form" method=post action="{{ url_for('root', tables=1)}}">
+    <input class="submit" type=submit value="Get Tables">
+  </form>
+  <br>
   {% from "_formhelpers.html" import render_field %}
-  <form class="login-form" method=post action="login">
+  <form class="update-tables-form" method=post action="{{ url_for('root', update=1)}}">
     <dl>
+      {{ render_field(form.teamname) }}
+      <br>
       {{ render_field(form.username) }}
       <br>
       {{ render_field(form.password) }}
+      <br>
+      {{ render_field(form.email) }}
+      <br>
+      {{ render_field(form.puzzle_name) }}
     </dl>
-    <p><input class="submit" type=submit value=Login></p>
+    <p><input class="submit" type=submit value="Update Team"></p>
   </form>
 {% if error %}
   <p class="error"> {{ error }} </p>

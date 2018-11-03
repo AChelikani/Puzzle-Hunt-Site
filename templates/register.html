@@ -26,10 +26,18 @@
       text-align: center;
       position: relative;
     }
+
+    .subtext {
+      color: white;
+      position: relative;
+      text-align: center;
+      font-size: 20px;
+    }
   </style>
 {% endblock %}
 {% block content %}
   <h1 class="register-title"> Register </h1>
+    <p class="subtext"> Once you create a team, you will NOT be able to change your team name. </p>
   {% from "_formhelpers.html" import render_field %}
   <form class="register-form" method=post>
     <dl>

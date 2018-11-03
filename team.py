@@ -9,14 +9,12 @@ def db_team_to_team(row):
 def is_team_unique(team):
     all_teams = db.get_team_by_teamname(team.name)
     if not all_teams:
-        print("is unique team name\n")
         return True
     return False
 
 def is_username_unique(team):
     all_teams = db.get_team_by_username(team.username)
     if not all_teams:
-        print("is unique username\n")
         return True
     return False
 
@@ -60,3 +58,26 @@ def team_solved_puzzle(team, puzzle):
 def is_puzzle_solved(team, puzzle):
     is_solved = db.get_team_puzzle_solve(team.name, puzzle.get_url_path())
     return True if is_solved[0] else False
+
+def update_team(team_name, team_username, team_password, team_email, puzzle_name):
+    # Team name must be specified because of validator in form
+    resp = "Team {} ".format(team_name)
+    if is_team_unique(Team(team_name, team_username, team_password, team_email)):
+        return resp + "is not a valid team!"
+    if (team_username == "X" and team_password == "X" and team_email == "X" and puzzle_name == "X"):
+        db.delete_team(team_name)
+        return resp + "deleted!"
+    if team_username:
+        db.update_username(team_name, team_username)
+        resp += "username changed to {} ".format(team_username)
+    if team_password:
+        db.update_code(team_name, team_password)
+        resp += " password changed to {} ".foramt(team_password)
+    if team_email:
+        db.update_email(team_name, team_email)
+        resp += " email changed to {} ".format(team_email)
+    if puzzle_name:
+        db.update_team_solves(team_name, Puzzle(puzzle_name, "").get_url_path())
+        db.update_team_score(team_name)
+        resp += " Puzzle {} updated to solved ".format(puzzle_name)
+    return resp

@@ -187,6 +187,9 @@
       {% if current_user.is_authenticated %}
       <li class="navbar-categories"><a href="{{ url_for('logout') }}">Logout</a></li>
       {% endif %}
+      {% if current_user.is_authenticated and current_user.username == "admin" %}
+      <li class="navbar-categories"><a href="{{ url_for('root') }}">Root</a></li>
+      {% endif %}
     </ul>
   </div>
 </nav>

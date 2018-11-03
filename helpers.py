@@ -17,3 +17,12 @@ def generate_team_code():
         rand_int = random.randint(0,len(chars))
         code += chars[rand_int]
     return code
+
+def hash_password(password):
+    return str(hash(password))
+
+def pretty_print_table(table):
+    return "<pre> " + "\n".join(map(str, table)) + "</pre>"
+
+def pretty_print_tables(table1, table2, table3):
+    return pretty_print_table(table1) + "<br>" + pretty_print_table(table2) + "<br>" + pretty_print_table(table3) + "<br>"

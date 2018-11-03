@@ -32,7 +32,7 @@ def puzzles():
     by_solved = request.args.get("sort_by_solved")
     print(by_solves)
     puzzle_solves = {}
-    if flask_login.current_user.is_authenticated:
+    if flask_login.current_user.is_authenticated and flask_login.current_user.username != "admin":
         puzzle_solves = team.get_all_team_puzzles(flask_login.current_user.team)
     puzzles = puzzle.get_all_puzzles_with_stats(by_solves=by_solves)
     if by_solved:
@@ -54,13 +54,11 @@ def puzzle_set(puzzle_name):
             else:
                 team.team_solved_puzzle(tm, pzl)
                 puzzle.puzzle_solved(pzl)
-                print("Team: {}, Puzzle: {}, Correct Answer!".format(tm.name, pzl.name))
-                #slack.log_correct_answer(tm, pzl)
+                slack.log_correct_answer(tm, pzl)
                 error_msg = "Correct answer!"
         else:
             puzzle.puzzle_attempted(pzl)
-            #print("Team: {}, Puzzle: {}, Guess: {}".format(tm.name, pzl.name, form.answer.data))
-            #slack.log_guess(tm, pzl, form.answer.data)
+            slack.log_guess(tm, pzl, form.answer.data)
             error_msg = "Incorrect answer!"
     form.answer.data = ""
     return render_template(url, form=form, error=error_msg)
@@ -69,7 +67,26 @@ def puzzle_set(puzzle_name):
 def scoreboard():
     return render_template("scoreboard.html", team_scores=team.get_all_teams_scores())
 
+@app.route("/root", methods=['GET', 'POST'])
+@flask_login.login_required
+def root():
+    if flask_login.current_user.username != "admin":
+        return redirect(url_for("index"))
+    form = forms.RootForm(request.form)
+    if request.method == "POST":
+        if request.args.get("tables"):
+            table1 = db.get_table_teams()
+            table2 = db.get_table_team_scores()
+            table3 = db.get_table_team_puzzles()
+            return helpers.pretty_print_tables(table1, table2, table3)
+        if request.args.get("update"):
+            resp = team.update_team(form.teamname.data, form.username.data, form.password.data, form.email.data, form.puzzle_name.data)
+            return render_template("root.html", form=form, error=resp)
+    return render_template("root.html", form=form)
+
+
 @app.route("/team_info")
+@flask_login.login_required
 def team_info():
     return render_template("team_info.html")
 
@@ -78,7 +95,7 @@ def register():
     form = forms.RegistrationForm(request.form)
     error_msg = None
     if request.method == 'POST' and form.validate():
-        tm = Team(form.name.data, form.username.data, form.password.data, form.email.data)
+        tm = Team(form.name.data, form.username.data, hash(form.password.data), form.email.data)
         if not team.is_team_unique(tm):
             error_msg = "Team already exists!"
         elif not team.is_username_unique(tm):
@@ -86,7 +103,7 @@ def register():
         else:
             db.add_team(tm)
             print("\n Adding Team\n Team: {}, Email: {}, Username: {}, Code: {}\n".format(tm.name, tm.email, tm.username, tm.code))
-            #slack.log_team_registration(tm)
+            slack.log_team_registration(tm)
             #mailgun.send_registration_email(tm.email, team_code)
             return render_template("completed_registration.html")
     return render_template("register.html", form=form, error=error_msg)
@@ -102,6 +119,11 @@ class User(flask_login.UserMixin):
 
 @login_manager.user_loader
 def user_loader(username):
+    ####################
+    #  FOR SUPER USER  #
+    ####################
+    if username == "admin":
+        return User(username)
     tm = team.get_team_by_username(username)
     if not tm:
         return
@@ -113,16 +135,18 @@ def user_loader(username):
 @login_manager.request_loader
 def request_loader(request):
     username = request.form.get('username')
+    ####################
+    #  FOR SUPER USER  #
+    ####################
+    if username == "admin" and request.form['password'] == "admin":
+        return User(username)
     tm = team.get_team_by_username(username)
     if not tm:
         return
 
     user = User(username, tm)
 
-    # DO NOT ever store passwords in plaintext and always compare password
-    # hashes using constant-time comparison!
-
-    if request.form['password'] == tm.code:
+    if helpers.hash_password(request.form['password']) == tm.code:
         return user
     return
 
@@ -133,19 +157,20 @@ def login():
         return render_template("login.html", form=form)
     if request.method == 'POST' and form.validate():
         username = form.username.data
+        ####################
+        #  FOR SUPER USER  #
+        ####################
+        if username == "admin" and form.password.data == "admin":
+            flask_login.login_user(User(username))
+            return redirect(url_for('index'))
+
         tm = team.get_team_by_username(username)
-        if tm and form.password.data == tm.code:
+        if tm and heleprs.hash_password(form.password.data) == tm.code:
             user = User(username, tm)
             flask_login.login_user(user)
             return redirect(url_for('index'))
 
     return render_template("login.html", form=form, error="Invalid username/password!")
-
-
-@app.route('/protected')
-@flask_login.login_required
-def protected():
-    return 'Logged in as: ' + flask_login.current_user.username
 
 @app.route('/logout')
 def logout():

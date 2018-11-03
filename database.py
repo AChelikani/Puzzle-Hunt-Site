@@ -6,9 +6,9 @@ DATABASE_NAME = "puzzle_hunt.db"
 '''
 TEAMS
 
-name   | username | code  | email                      | score
-------------------------------------------------------------------
-adv18  | adv18    | xyz   | advith.chelikani@gmail.com | 0
+name   | username | code  | email
+------------------------------------------------------
+adv18  | adv18    | xyz   | advith.chelikani@gmail.com
 
 
 TEAM_PUZZLES
@@ -18,7 +18,7 @@ name   | puzzle code 1  | puzzle code 2 | ...
 adv18  | true           | false         | ...
 
 
-TEAM_SCORE
+TEAM_SCORES
 
 name   | score  | last_solve
 ---------------------------------------------------
@@ -83,7 +83,7 @@ def add_puzzle(puzzle):
     conn = sqlite3.connect(DATABASE_NAME)
     c = conn.cursor()
     # Add row to puzzle_stats
-    # Add column to team_puzles
+    # Add column to team_puzzles
     c.execute("INSERT INTO puzzle_stats VALUES (?, ?, ?)", (puzzle.get_url_path(), 0, 0))
     c.execute("ALTER TABLE team_puzzles ADD COLUMN {} boolean DEFAULT 0".format(puzzle.get_url_path()))
     conn.commit()
@@ -154,13 +154,6 @@ def get_puzzles_stats():
     conn.close()
     return all_puzzle_stats
 
-def update_team_score(team_name):
-    conn = sqlite3.connect(DATABASE_NAME)
-    c = conn.cursor()
-    c.execute("UPDATE team_scores SET score=score+1, last_solve=? WHERE name=?", (time.time(), team_name))
-    conn.commit()
-    conn.close()
-
 def get_team_puzzles(team_name):
     conn = sqlite3.connect(DATABASE_NAME)
     c = conn.cursor()
@@ -176,6 +169,37 @@ def get_team_puzzle_solve(team_name, puzzle_name):
     puzzle = c.fetchone()
     conn.close()
     return puzzle
+
+def get_table_teams():
+    conn = sqlite3.connect(DATABASE_NAME)
+    c = conn.cursor()
+    c.execute("SELECT * FROM teams")
+    teams = c.fetchall()
+    conn.close()
+    return teams
+
+def get_table_team_scores():
+    conn = sqlite3.connect(DATABASE_NAME)
+    c = conn.cursor()
+    c.execute("SELECT * FROM team_scores")
+    teams = c.fetchall()
+    conn.close()
+    return teams
+
+def get_table_team_puzzles():
+    conn = sqlite3.connect(DATABASE_NAME)
+    c = conn.cursor()
+    c.execute("SELECT * FROM team_puzzles")
+    teams = c.fetchall()
+    conn.close()
+    return teams
+
+def update_team_score(team_name):
+    conn = sqlite3.connect(DATABASE_NAME)
+    c = conn.cursor()
+    c.execute("UPDATE team_scores SET score=score+1, last_solve=? WHERE name=?", (time.time(), team_name))
+    conn.commit()
+    conn.close()
 
 def update_team_solves(team_name, puzzle_name):
     conn = sqlite3.connect(DATABASE_NAME)
@@ -195,5 +219,35 @@ def update_puzzle_attempts(puzzle_name):
     conn = sqlite3.connect(DATABASE_NAME)
     c = conn.cursor()
     c.execute("UPDATE puzzle_stats SET attempts=attempts+1 WHERE name=?", (puzzle_name,))
+    conn.commit()
+    conn.close()
+
+def update_username(team_name, username):
+    conn = sqlite3.connect(DATABASE_NAME)
+    c = conn.cursor()
+    c.execute("UPDATE teams SET username=? WHERE name=?", (username, team_name))
+    conn.commit()
+    conn.close()
+
+def update_email(team_name, email):
+    conn = sqlite3.connect(DATABASE_NAME)
+    c = conn.cursor()
+    c.execute("UPDATE teams SET email=? WHERE name=?", (email, team_name))
+    conn.commit()
+    conn.close()
+
+def update_code(team_name, code):
+    conn = sqlite3.connect(DATABASE_NAME)
+    c = conn.cursor()
+    c.execute("UPDATE teams SET code=? WHERE name=?", (code, team_name))
+    conn.commit()
+    conn.close()
+
+def delete_team(team_name):
+    conn = sqlite3.connect(DATABASE_NAME)
+    c = conn.cursor()
+    c.execute("DELETE FROM teams WHERE name=?", (team_name,))
+    c.execute("DELETE FROM team_scores WHERE name=?", (team_name,))
+    c.execute("DELETE from team_puzzles WHERE name=?", (team_name,))
     conn.commit()
     conn.close()
