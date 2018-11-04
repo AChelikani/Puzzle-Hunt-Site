@@ -165,7 +165,7 @@ def login():
             return redirect(url_for('index'))
 
         tm = team.get_team_by_username(username)
-        if tm and heleprs.hash_password(form.password.data) == tm.code:
+        if tm and helpers.hash_password(form.password.data) == tm.code:
             user = User(username, tm)
             flask_login.login_user(user)
             return redirect(url_for('index'))

@@ -34,6 +34,7 @@ Tasks
 - [ ] More robust checking around if team names or usernames are the same
 - [ ] Change post account creation page
 - [X] Store hashed version of password, not plaintext
+- [X] Add favicon
 
 Hosting
 - [ ] Get domain name
