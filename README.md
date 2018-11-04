@@ -32,11 +32,11 @@ Tasks
 - [X] Show which puzzles are solved on puzzles page
 - [X] Add an option to sort by most solved
 - [ ] More robust checking around if team names or usernames are the same
-- [ ] Change post account creation page
 - [X] Store hashed version of password, not plaintext
 - [X] Add favicon
+- [ ] Add About Us page
 
 Hosting
-- [ ] Get domain name
+- [X] Get domain name
 - [ ] Move Mailgun emails to DNS
 - [ ] Host site on domain
