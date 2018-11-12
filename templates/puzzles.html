@@ -35,6 +35,7 @@
 {% endblock %}
 {% block content %}
   <h1 class="puzzles-title"> Puzzles </h1>
+  {% if current_user.is_authenticated and current_user.username == "admin" %}
   <table align="center">
     <colgroup>
       <col style="width: 40ch">
@@ -52,6 +53,6 @@
       <th> {{puzzle.solves}}/{{puzzle.attempts}} </th>
     </tr>
   {% endfor %}
-</table>
-
+  </table>
+  {% endif %}
 {% endblock %}

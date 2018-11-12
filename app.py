@@ -108,6 +108,10 @@ def register():
             return render_template("completed_registration.html")
     return render_template("register.html", form=form, error=error_msg)
 
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
 
 # Error page
 @app.errorhandler(404)

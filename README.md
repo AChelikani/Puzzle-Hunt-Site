@@ -6,7 +6,7 @@
 
 ### Todos
 Tasks
-- [ ] Add email verification (need to pay via Mailgun)
+- [ ] Add email sending (need to hook up Mailgun to custom DNS)
 - [X] Add duplicate team name verification
 - [X] Send out email on account creation
 - [X] Split out scoring into new `team_scores` table
@@ -24,6 +24,7 @@ Tasks
 - [X] Total solves out of attempts per puzzle in puzzles page
 - [X] Impose character limit on team name
 - [ ] Add forgot password button
+- [ ] Add change password mechanism
 - [X] Add login system
   - [X] Hide relevant content behind login flag
   - [X] Make registration take a password field

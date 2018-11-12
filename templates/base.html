@@ -191,6 +191,7 @@
       {% if current_user.is_authenticated and current_user.username == "admin" %}
       <li class="navbar-categories"><a href="{{ url_for('root') }}">Root</a></li>
       {% endif %}
+      <li class="navbar-categories"><a href="{{ url_for('about') }}">About</a></li>
     </ul>
   </div>
 </nav>
