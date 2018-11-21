@@ -26,10 +26,18 @@
       text-align: center;
       position: relative;
     }
+
+    .subtext {
+      color: white;
+      position: relative;
+      text-align: center;
+      font-size: 20px;
+    }
   </style>
 {% endblock %}
 {% block content %}
   <h1 class="login-title"> Login </h1>
+  <p class="subtext"> Everyone on your team should login with the same account. </p>
   {% from "_formhelpers.html" import render_field %}
   <form class="login-form" method=post action="login">
     <dl>

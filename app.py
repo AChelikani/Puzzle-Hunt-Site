@@ -20,7 +20,7 @@ login_manager.init_app(app)
 
 db.create_databases()
 puzzle.add_puzzles()
-mock_db.create_mock_teams()
+#mock_db.create_mock_teams()
 
 @app.route("/")
 def index():
